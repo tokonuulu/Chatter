@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Chatter</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+</resources>
