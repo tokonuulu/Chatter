@@ -6,6 +6,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorOnSurface">@color/colorSecondary</item>
+
+        <item name="android:fontFamily">@font/rubik</item>
     </style>
 
     <style name="NoActionBar" parent="Theme.MaterialComponents.NoActionBar.Bridge">
@@ -13,6 +15,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorOnSurface">@color/colorSecondary</item>
+
+        <item name="android:fontFamily">@font/rubik</item>
     </style>
 
 </resources>
