@@ -1,13 +1,11 @@
-package com.example.chatter.ui.main
+package com.example.chatter.ui.profile
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.chatter.model.User
 import com.example.chatter.repository.AuthRepository
 import com.example.chatter.repository.DatabaseRepository
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
@@ -16,8 +14,7 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
-class MainViewModel
-@Inject constructor(
+class ProfileViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     private val databaseRepository: DatabaseRepository
 ) : ViewModel() {
@@ -31,13 +28,7 @@ class MainViewModel
     val user: LiveData<User> = _user
 
     init {
-        val uid = authRepository.getCurrentUid()
-        if ( uid != null )
-            loadUserProfile(uid)
-    }
-
-    fun getCurrentUid() : String? {
-        return authRepository.getCurrentUid()
+        loadUserProfile(authRepository.getCurrentUid()!!)
     }
 
     private fun loadUserProfile(uid: String) {
@@ -61,6 +52,10 @@ class MainViewModel
                 override fun onComplete() {
                 }
             })
+    }
+
+    fun onSingOut() {
+        authRepository.signOut()
     }
 
     private fun onUserInfoChange(user: User) {

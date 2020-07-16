@@ -2,6 +2,7 @@ package com.example.chatter.ui.register
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -10,16 +11,25 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.RequestManager
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.chatter.R
 import com.example.chatter.ui.main.MainActivity
 import com.example.chatter.utils.Status
 import dagger.android.AndroidInjection
+import de.hdodenhof.circleimageview.CircleImageView
+import jp.wasabeef.glide.transformations.BlurTransformation
+import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_register.*
 import javax.inject.Inject
 
 class RegisterActivity : AppCompatActivity() {
 
     @Inject lateinit var modelFactory: ViewModelProvider.Factory
+    @Inject lateinit var requestManager: RequestManager
+
     private lateinit var viewModel: RegisterViewModel
     private var imageUri : Uri? = null
 
@@ -108,6 +118,12 @@ class RegisterActivity : AppCompatActivity() {
             imageUri = data.data
             val bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(contentResolver, imageUri!!))
             select_photo_image_view.setImageBitmap(bitmap)
+
+            requestManager
+                .load(imageUri)
+                .transform(BlurTransformation())
+                .into(blur_image_register)
+
             select_photo_register.alpha = 0f
         }
     }

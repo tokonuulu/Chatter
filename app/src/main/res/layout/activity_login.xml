@@ -10,13 +10,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:background="@android:color/white"
+        android:backgroundTint="@color/main"
         android:layout_height="wrap_content">
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="170dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/salam_logo"
+            android:src="@drawable/logo"
             app:layout_constraintBottom_toTopOf="@id/email_textlayout_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/colorPrimaryLight" />
+                android:textColor="@android:color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:textColor="@color/colorPrimaryLight" />
+                android:textColor="@android:color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,7 +120,7 @@
             android:background="@drawable/rounded_button"
             android:text="@string/login"
             android:textStyle="bold"
-            android:textColor="@android:color/white"
+            android:textColor="@color/main"
             app:layout_constraintBottom_toTopOf="@+id/register_textview_login"
             app:layout_constraintEnd_toEndOf="@+id/password_textlayout_login"
             app:layout_constraintHorizontal_bias="0.5"
@@ -134,7 +135,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="32dp"
             android:text="@string/have_not_registered_yet"
-            android:textColor="@color/colorSecondaryLight"
+            android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

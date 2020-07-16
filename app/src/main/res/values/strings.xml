@@ -8,4 +8,6 @@
     <string name="login">Login</string>
     <string name="loading">Loading</string>
     <string name="have_not_registered_yet">Have not registered yet?</string>
+    <string name="logout">Log out</string>
+    <string name="back_to_login_page">Back to login page</string>
 </resources>
