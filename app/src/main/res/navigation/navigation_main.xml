@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/destination_chat">
+
+    <fragment
+        android:id="@+id/destination_chat"
+        android:name="com.example.chatter.ui.main.chats.ChatFragment"
+        android:label="chat_fragment"
+        tools:layout="@layout/chat_fragment" >
+        <action
+            android:id="@+id/action_next"
+            app:destination="@id/destination_notification" />
+    </fragment>
+    <fragment
+        android:id="@+id/destination_notification"
+        android:name="com.example.chatter.ui.main.notifications.NotificationFragment"
+        android:label="notification_fragment"
+        tools:layout="@layout/notification_fragment" >
+        <action
+            android:id="@+id/action_notificationFragment_to_userFragment"
+            app:destination="@id/destination_user" />
+    </fragment>
+    <fragment
+        android:id="@+id/destination_user"
+        android:name="com.example.chatter.ui.main.users.UserFragment"
+        android:label="user_fragment"
+        tools:layout="@layout/user_fragment" >
+        <action
+            android:id="@+id/action_destination_user_to_destination_chat"
+            app:destination="@id/destination_chat" />
+    </fragment>
+</navigation>

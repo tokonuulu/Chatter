@@ -26,7 +26,7 @@ class RegisterViewModel
     private val compositeDisposable: CompositeDisposable by lazy {
         CompositeDisposable()
     }
-    
+
     fun registerNewUser(name: String, email: String, password: String, bitmap: Bitmap?) {
         println("debug: viewmodel: registering user")
         authRepository.registerNewUser(name, email, password)
@@ -42,8 +42,12 @@ class RegisterViewModel
                     println("debug: viewmodel: successfully registered")
                     if (bitmap != null)
                         updateProfileImage(bitmap)
-                    else
-                        updateState(RequestState.success())
+
+                    /*
+                    *  Here we successfully registered the user (and updated profile image)
+                    *  Time to sign in!
+                    * */
+                    signIn(email, password)
                 }
 
                 override fun onError(e: Throwable?) {
@@ -62,12 +66,36 @@ class RegisterViewModel
                     compositeDisposable.add(d)
                     updateState(RequestState.loading())
                 }
+
                 override fun onComplete() {
                     println("debug: viewmodel: successfully uploaded image")
                     updateState(RequestState.success())
                 }
+
                 override fun onError(e: Throwable?) {
                     println("debug: viewmodel: failed to upload image ${e?.message}")
+                    updateState(RequestState.error(e?.message))
+                }
+            })
+    }
+
+    fun signIn(email: String, password: String) {
+        authRepository.signIn(email, password)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : CompletableObserver {
+                override fun onSubscribe(d: Disposable?) {
+                    compositeDisposable.add(d)
+                    updateState(RequestState.loading())
+                }
+
+                override fun onComplete() {
+                    println("debug: login: successfully logged in")
+                    updateState(RequestState.success())
+                }
+
+                override fun onError(e: Throwable?) {
+                    println("debug: login: failed to log in ${e?.message}")
                     updateState(RequestState.error(e?.message))
                 }
             })

@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.chatter.R
-import com.example.chatter.ui.login.LoginActivity
+import com.example.chatter.ui.main.MainActivity
 import com.example.chatter.utils.Status
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_register.*
@@ -44,8 +44,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         already_have_account_text_view.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
         select_photo_register.setOnClickListener {
@@ -69,6 +68,7 @@ class RegisterActivity : AppCompatActivity() {
                 Status.SUCCESS -> {
                     println("Debug: successfully created user")
                     loading_group_register.visibility = View.GONE
+                    onSuccessfullySignedIn()
                 }
                 Status.ERROR -> {
                     loading_group_register.visibility = View.GONE
@@ -94,6 +94,12 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         viewModel.registerNewUser(name, email, password, bitmap)
+    }
+
+    private fun onSuccessfullySignedIn() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

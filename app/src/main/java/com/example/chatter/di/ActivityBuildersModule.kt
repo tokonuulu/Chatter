@@ -1,6 +1,8 @@
 package com.example.chatter.di
 
 import com.example.chatter.ui.login.LoginActivity
+import com.example.chatter.ui.main.MainActivity
+import com.example.chatter.ui.main.MainViewModel
 import com.example.chatter.ui.register.RegisterActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -13,4 +15,8 @@ abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeLoginActivity() : LoginActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributeMainActivity() : MainActivity
+
 }

@@ -1,5 +1,8 @@
 package com.example.chatter.di
 
+import android.app.Application
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.example.chatter.repository.AuthRepository
 import com.example.chatter.repository.DatabaseRepository
 import com.example.chatter.repository.FirebaseAuthSource
@@ -8,9 +11,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
+
 
 @Module
 class AppModule {
@@ -63,4 +68,11 @@ class AppModule {
     fun provideDatabaseRepository(firebaseDataSource: FirebaseDataSource) : DatabaseRepository {
         return DatabaseRepository(firebaseDataSource)
     }
+
+    @Singleton
+    @Provides
+    fun provideGlideInstance(application: Application) : RequestManager {
+        return Glide.with(application)
+    }
+
 }
