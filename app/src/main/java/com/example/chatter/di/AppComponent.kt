@@ -2,7 +2,6 @@ package com.example.chatter.di
 
 import android.app.Application
 import com.example.chatter.ChatterApplication
-import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -16,7 +15,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         ActivityBuildersModule::class,
         AppModule::class,
-        ViewModelModule::class]
+        ActivityViewModelModule::class]
 )
 interface AppComponent : AndroidInjector<ChatterApplication> {
 

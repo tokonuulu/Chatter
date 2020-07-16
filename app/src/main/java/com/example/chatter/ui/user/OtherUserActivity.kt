@@ -1,58 +1,52 @@
-package com.example.chatter.ui.profile
+package com.example.chatter.ui.user
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.RequestManager
 import com.example.chatter.R
-import com.example.chatter.ui.login.LoginActivity
+import com.example.chatter.ui.profile.ProfileViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_profile.*
 import javax.inject.Inject
 
-class ProfileActivity : DaggerAppCompatActivity() {
+class OtherUserActivity : DaggerAppCompatActivity() {
 
-    @Inject lateinit var modelFactory: ViewModelProvider.Factory
-    @Inject lateinit var requestManager: RequestManager
-    private lateinit var viewModel: ProfileViewModel
+    @Inject
+    lateinit var modelFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: OtherUserViewModel
+    @Inject
+    lateinit var requestManager: RequestManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        setContentView(R.layout.activity_other_user)
 
         setSupportActionBar(toolbar_other_user)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Profile"
 
         viewModel = ViewModelProvider(this, modelFactory)
-            .get(ProfileViewModel::class.java)
+            .get(OtherUserViewModel::class.java)
 
-        logout_button_profile.setOnClickListener {
-            performSignOut()
-        }
+        val uid = intent.getStringExtra("uid")
+        if (uid == null)
+            finish()
+        viewModel.setUid(uid)
+
         startObservingUserProfile()
     }
 
     private fun startObservingUserProfile() {
-        viewModel.user.observe(this, Observer { user->
+        viewModel.user.observe(this, Observer { user ->
             if (user == null) return@Observer
 
             updateUserName(user.name)
             updateUserEmail(user.email)
-            if ( user.image != "default" )
+            if (user.image != "default")
                 updateProfileImage(user.image)
         })
-    }
-
-    private fun performSignOut() {
-        /* Sign the user out */
-        viewModel.onSingOut()
-        /* Go to login page */
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK.or(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        startActivity(intent)
     }
 
     private fun updateUserEmail(email: String) {
@@ -76,5 +70,10 @@ class ProfileActivity : DaggerAppCompatActivity() {
             .placeholder(R.drawable.default_image_150)
             .error(R.drawable.ic_baseline_error_150)
             .into(blur_image_other_user)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }

@@ -31,7 +31,7 @@ class FirebaseAuthSource @Inject constructor(
                     map["name"] = name
                     map["email"] = email
                     map["password"] = password
-                    map["image"] = ""
+                    map["image"] = "default"
 
                     firebaseFirestore.collection(Constants.USERS)
                         .document(getCurrentUid()!!).set(map)
