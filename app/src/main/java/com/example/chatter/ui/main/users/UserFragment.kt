@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.RequestManager
 import com.example.chatter.R
 import com.example.chatter.ui.main.MainActivity
+import com.example.chatter.ui.messages.MessagesActivity
 import com.example.chatter.ui.user.OtherUserActivity
 import com.google.firebase.firestore.DocumentSnapshot
 import dagger.android.AndroidInjection
@@ -53,8 +54,8 @@ class UserFragment() : DaggerFragment(), UsersRecyclerAdapter.UserClickListener 
     }
 
     private fun openProfile(id: String) {
-        val intent = Intent(activity, OtherUserActivity::class.java)
-        intent.putExtra("uid", id)
+        val intent = Intent(activity, MessagesActivity::class.java)
+        intent.putExtra("receiver_uid", id)
         startActivity(intent)
     }
 

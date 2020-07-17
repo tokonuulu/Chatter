@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.core.SingleObserver
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -44,21 +45,16 @@ class MainViewModel
         databaseRepository.getUserInfo(uid)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .toObservable()
-            .subscribe(object : Observer<DocumentSnapshot> {
+            .subscribe(object : SingleObserver<User> {
                 override fun onSubscribe(d: Disposable?) {
                     compositeDisposable.add(d)
                 }
-                override fun onNext(documentSnapshot: DocumentSnapshot?) {
-                    if (documentSnapshot != null) {
-                        val user = documentSnapshot.toObject(User::class.java)
-                        onUserInfoChange(user!!)
-                    }
+
+                override fun onSuccess(user: User?) {
+                    if (user != null)
+                        onUserInfoChange(user)
                 }
                 override fun onError(e: Throwable?) {
-                }
-
-                override fun onComplete() {
                 }
             })
     }
@@ -67,4 +63,8 @@ class MainViewModel
         _user.value = user
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
+    }
 }

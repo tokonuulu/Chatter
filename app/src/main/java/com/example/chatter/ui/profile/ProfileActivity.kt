@@ -73,8 +73,6 @@ class ProfileActivity : DaggerAppCompatActivity() {
         requestManager
             .load(imageUrl)
             .transform(BlurTransformation())
-            .placeholder(R.drawable.default_image_150)
-            .error(R.drawable.ic_baseline_error_150)
             .into(blur_image_other_user)
     }
 }

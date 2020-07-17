@@ -36,14 +36,13 @@ class ProfileViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .toObservable()
-            .subscribe(object : Observer<DocumentSnapshot> {
+            .subscribe(object : Observer<User> {
                 override fun onSubscribe(d: Disposable?) {
                     compositeDisposable.add(d)
                 }
-                override fun onNext(documentSnapshot: DocumentSnapshot?) {
-                    if (documentSnapshot != null) {
-                        val user = documentSnapshot.toObject(User::class.java)
-                        onUserInfoChange(user!!)
+                override fun onNext(user: User?) {
+                    if (user != null) {
+                        onUserInfoChange(user)
                     }
                 }
                 override fun onError(e: Throwable?) {
@@ -60,6 +59,11 @@ class ProfileViewModel @Inject constructor(
 
     private fun onUserInfoChange(user: User) {
         _user.value = user
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
     }
 
 }

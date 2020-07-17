@@ -8,6 +8,8 @@ import com.example.chatter.repository.DatabaseRepository
 import com.google.firebase.firestore.DocumentSnapshot
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.SingleObserver
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -33,26 +35,27 @@ class OtherUserViewModel
         databaseRepository.getUserInfo(uid)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .toObservable()
-            .subscribe(object : Observer<DocumentSnapshot> {
+            .subscribe(object : SingleObserver<User> {
                 override fun onSubscribe(d: Disposable?) {
                     compositeDisposable.add(d)
                 }
-                override fun onNext(documentSnapshot: DocumentSnapshot?) {
-                    if (documentSnapshot != null) {
-                        val user = documentSnapshot.toObject(User::class.java)
-                        onUserInfoChange(user!!)
-                    }
-                }
-                override fun onError(e: Throwable?) {
+
+                override fun onSuccess(user: User?) {
+                    if (user != null)
+                        onUserInfoChange(user)
                 }
 
-                override fun onComplete() {
+                override fun onError(e: Throwable?) {
                 }
             })
     }
 
     private fun onUserInfoChange(user: User) {
         _user.value = user
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
     }
 }

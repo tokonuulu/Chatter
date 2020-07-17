@@ -5,12 +5,8 @@
         android:icon="@drawable/chat_24_white"
         android:title="Chats"/>
 
-    <item android:id="@+id/destination_notification"
-        android:icon="@drawable/notifications_24_white"
-        android:title="Notifications"/>
-
     <item android:id="@+id/destination_user"
-        android:icon="@drawable/user_circle_24_white"
+        android:icon="@drawable/users_24_white"
         android:title="Users"/>
 
 </menu>

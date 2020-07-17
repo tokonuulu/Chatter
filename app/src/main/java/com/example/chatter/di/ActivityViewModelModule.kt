@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.chatter.ui.login.LoginViewModel
 import com.example.chatter.ui.main.MainViewModel
+import com.example.chatter.ui.messages.MessagesViewModel
 import com.example.chatter.ui.profile.ProfileViewModel
 import com.example.chatter.ui.register.RegisterViewModel
 import com.example.chatter.ui.splash.SplashScreenViewModel
@@ -43,6 +44,11 @@ abstract class ActivityViewModelModule {
     @IntoMap
     @ViewModelKey(OtherUserViewModel::class)
     internal abstract fun bindOtherUserViewModel(otherUserViewModel: OtherUserViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MessagesViewModel::class)
+    internal abstract fun bindMessagesViewModel(messagesViewModel: MessagesViewModel): ViewModel
 
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
