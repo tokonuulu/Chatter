@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/destination_chat"
-        android:name="com.example.chatter.ui.main.chats.ChatFragment"
+        android:name="com.example.chatter.ui.main.openchats.OpenChatsFragment"
         android:label="chat_fragment"
-        tools:layout="@layout/chat_fragment" >
+        tools:layout="@layout/open_chat_fragment" >
         <action
             android:id="@+id/action_next"
             app:destination="@id/destination_notification" />

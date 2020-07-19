@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.chats.ChatFragment">
+    tools:context=".ui.main.openchats.OpenChatsFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_open_chats"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="chat" />
+        tools:listitem="@layout/open_chat_view_item"/>
 
 </FrameLayout>

@@ -17,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="170dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/logo"
+            android:src="@drawable/logo_with_text"
             app:layout_constraintBottom_toTopOf="@id/email_textlayout_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

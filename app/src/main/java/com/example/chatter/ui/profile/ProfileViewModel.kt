@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.example.chatter.model.User
 import com.example.chatter.repository.AuthRepository
 import com.example.chatter.repository.DatabaseRepository
-import com.google.firebase.firestore.DocumentSnapshot
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -28,11 +27,11 @@ class ProfileViewModel @Inject constructor(
     val user: LiveData<User> = _user
 
     init {
-        loadUserProfile(authRepository.getCurrentUid()!!)
+        loadUserProfile()
     }
 
-    private fun loadUserProfile(uid: String) {
-        databaseRepository.getUserInfo(uid)
+    private fun loadUserProfile() {
+        databaseRepository.getCurrentUserInfo()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .toObservable()

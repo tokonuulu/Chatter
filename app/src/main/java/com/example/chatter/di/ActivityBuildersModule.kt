@@ -1,17 +1,14 @@
 package com.example.chatter.di
 
-import com.example.chatter.di.main.MainFragmentBuildersModule
-import com.example.chatter.di.main.MainModule
-import com.example.chatter.di.main.MainViewModelModule
+import com.example.chatter.di.main.openchats.OpenChatsModule
+import com.example.chatter.di.main.users.UsersModule
 import com.example.chatter.di.message.MessagesModule
 import com.example.chatter.ui.login.LoginActivity
 import com.example.chatter.ui.main.MainActivity
-import com.example.chatter.ui.main.MainViewModel
 import com.example.chatter.ui.messages.MessagesActivity
 import com.example.chatter.ui.profile.ProfileActivity
 import com.example.chatter.ui.register.RegisterActivity
 import com.example.chatter.ui.splash.SplashScreenActivity
-import com.example.chatter.ui.splash.SplashScreenViewModel
 import com.example.chatter.ui.user.OtherUserActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -26,9 +23,8 @@ abstract class ActivityBuildersModule {
     abstract fun contributeLoginActivity(): LoginActivity
 
     @ContributesAndroidInjector(
-        modules = [MainModule::class,
-            MainFragmentBuildersModule::class,
-            MainViewModelModule::class]
+        modules = [UsersModule::class,
+            OpenChatsModule::class]
     )
     abstract fun contributeMainActivity(): MainActivity
 
